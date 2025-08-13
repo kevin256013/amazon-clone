@@ -1,17 +1,25 @@
 import React from 'react'
 import SearchIcon from '@mui/icons-material/Search';
 import ShoppingBasketIcon from '@mui/icons-material/ShoppingBasket';
+import { Link } from 'react-router-dom';
+import { useStateValue } from '../context/StateProvider';
 
 const Header = () => {
+
+    const [ { basket }, dispatch ] = useStateValue(); // access global state(basket) and dispatch 
+    
   return (
     <div className='h-[60px] flex items-center bg-[#131921] sticky top-0 z-[100]'>
 
         {/* Amazon Logo */}
-        <img 
-        className='w-[100px] object-contain mx-20 mt-[18px]'
-        src='./images/amazon-logo.png' 
-        alt='amazon-logo'
-        />
+        {/* Link to homepage */}
+        <Link to={'/'}>
+            <img 
+                className='w-[100px] object-contain mx-20 mt-[18px]'
+                src='./images/amazon-logo.png' 
+                alt='amazon-logo'
+            />
+        </Link>
 
         {/* Input Header */}
         <div className='flex flex-1 items-center rounded-[24px]'>
@@ -48,14 +56,15 @@ const Header = () => {
                     Prime
                 </span>
             </div>
-
-            <div className='flex items-center text-white'>
-                <ShoppingBasketIcon/>
-                <span className='text-[13px] font-extrabold ml-[10px] mr-[10px'>
-                    0
-                </span>
-
-            </div>
+            {/* Link to Checkout */}
+            <Link to={'/checkout'}>
+                <div className='flex items-center text-white'>
+                    <ShoppingBasketIcon/>
+                    <span className='text-[13px] font-extrabold ml-[10px] mr-[10px'>
+                        {basket?.length}
+                    </span>
+                </div>
+            </Link>
 
         </div>
 
