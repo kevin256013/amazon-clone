@@ -1,14 +1,19 @@
 import React from 'react';
 import { NumericFormat } from 'react-number-format';
+import { useStateValue } from '../context/StateProvider';
+import { getBasketTotal } from '../context/reducer';
 
 const Subtotal = () => {
+
+    const [ { basket }, dispatch] = useStateValue(); // access global state(basket) and dispatch 
+    
   return (
     <div className='subtotal flex flex-col justify-between w-[300px] h-[100px] p-[20px] bg-[#f3f3f3] border border-solid border-[#dddd] rounded-sm'>
         <NumericFormat
             renderText={(value) => (
                 <>
                     <p>
-                        Subtotal (0 items): <strong>0</strong>
+                        Subtotal ({basket.length} items): <strong>{value}</strong>
                     </p>
                     <small className='subtotal_gift flex items-center'>
                         <input 
@@ -20,7 +25,7 @@ const Subtotal = () => {
                 </>
             )}
             decimalScale={2}
-            value={0}
+            value={getBasketTotal(basket)}
             displayType='text'
             thousandSeparator={true}
             prefix='$'

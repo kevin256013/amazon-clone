@@ -5,9 +5,11 @@ export const StateContext = createContext();
 
 // Wrap the app and provide the Data Layer
 export  const StateProvider = ({ reducer, initialState, children }) => {
-    <StateContext.Provider value={useReducer(reducer, initialState)}>
+    return (
+        <StateContext.Provider value={useReducer(reducer, initialState)}>
         {children}
-    </StateContext.Provider>
+        </StateContext.Provider>
+    );
 };
 
 // Pull information from the Data Layer
